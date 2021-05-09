@@ -1,5 +1,6 @@
 package judgev2.web;
 
+import judgev2.data.binding.UserLoginBindingModel;
 import judgev2.data.binding.UserRegisterBindingModel;
 import judgev2.data.service.UserServiceModel;
 import judgev2.service.UserService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -67,12 +69,55 @@ public class UserController {
 
             return "redirect:register";
         }
-        // https:/www.github.com/SoftUni/SpringHomework/ valid
 
         userService.register(modelMapper
                 .map(userRegisterBindingModel
                         , UserServiceModel.class));
 
         return "redirect:login";
+    }
+
+    @GetMapping("/login")
+    private String login(Model model) {
+        if (!model.containsAttribute("userLoginBindingModel")) {
+            model.addAttribute("userLoginBindingModel"
+                    , new UserLoginBindingModel());
+        }
+        return "login";
+    }
+
+    @PostMapping("/login")
+    private String loginConfirm(
+            @Valid UserLoginBindingModel userLoginBindingModel
+            , BindingResult bindingResult
+            , RedirectAttributes redirectAttributes
+            , HttpSession httpSession
+    ) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("userLoginBindingModel"
+                    , userLoginBindingModel);
+
+            redirectAttributes.addFlashAttribute("org.springframework" +
+                            ".validation.BindingResult" +
+                            ".userLoginBindingModel",
+                    bindingResult);
+
+            return "redirect:login";
+        }
+
+        UserServiceModel userServiceModel =
+                userService.findByUsernameAndPassword(
+                        modelMapper.map(userLoginBindingModel, UserServiceModel.class));
+
+        if (userServiceModel == null) {
+            redirectAttributes.addFlashAttribute("notFound", true);
+            redirectAttributes
+                    .addFlashAttribute("notFoundMsg", "Incorrect username or password");
+            return "redirect:login";
+        }
+
+        httpSession.setAttribute("user", userServiceModel.getUsername());
+
+        return "redirect:/";
     }
 }

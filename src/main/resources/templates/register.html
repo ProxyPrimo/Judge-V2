@@ -7,6 +7,9 @@
 <body>
 <div class="container">
     <th:block th:include="~{fragments/nav}"/>
+    <div class="container mt-lg-5 border-right border-bottom bg-transparent h-100">
+        <h1 class="w-100 text-light text-right">Register</h1>
+    </div>
     <div class="row tm-mt-big">
         <div class="col-12 mx-auto tm-login-col">
             <div class="bg-white tm-block">
@@ -24,7 +27,8 @@
                                        th:errorclass="bg-danger" placeholder="Enter username">
                                 <div class="mx-auto">
                                     <small th:if="${#fields.hasErrors('username')}"
-                                           th:errors="*{username}" class="text-danger">The username must be at least 2 characters long</small>
+                                           th:errors="*{username}" class="text-danger">The username must be at least 2
+                                        characters long</small>
                                 </div>
                             </div>
                             <div class="input-group mt-3">
@@ -58,7 +62,8 @@
 
                             </div>
                             <div class="mx-auto text-center">
-                                <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger">Enter valid email address</small>
+                                <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger">Enter
+                                    valid email address</small>
                             </div>
                             <div class="input-group mt-3">
                                 <label for="git" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Git</label>
