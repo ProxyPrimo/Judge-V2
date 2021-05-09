@@ -1,4 +1,4 @@
-package judgev2.data.entities;
+package judgev2.data.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-@NoArgsConstructor
 @Getter
 @Setter
 public abstract class BaseEntity {

@@ -1,4 +1,4 @@
-package judgev2.data.entities;
+package judgev2.data.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

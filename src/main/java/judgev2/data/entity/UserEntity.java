@@ -1,4 +1,4 @@
-package judgev2.data.entities;
+package judgev2.data.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "users")
@@ -31,9 +30,6 @@ public class UserEntity extends BaseEntity {
     @Email(message = "Invalid email")
     private String email;
 
-    /* TODO pattern
-     https:/github.com/{username}/SpringTestData/
-    */
     @Column(name = "github_address", nullable = false, unique = true)
     private String githubAddress;
 

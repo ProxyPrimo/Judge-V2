@@ -1,6 +1,6 @@
-package judgev2.data.entities;
+package judgev2.data.entity;
 
-import judgev2.data.entities.enumeration.RoleName;
+import judgev2.data.entity.enumeration.RoleName;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
