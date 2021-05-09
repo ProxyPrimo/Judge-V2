@@ -1,11 +1,13 @@
 package judgev2.data.entities;
 
 import judgev2.data.entities.enumeration.RoleName;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
@@ -14,7 +16,8 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class RoleEntity extends BaseEntity {
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private RoleName name;
 }
