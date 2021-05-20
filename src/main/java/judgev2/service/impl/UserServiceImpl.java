@@ -53,4 +53,9 @@ public class UserServiceImpl implements UserService {
 
         return userEntity == null ? null : modelMapper.map(userEntity, UserServiceModel.class);
     }
+
+    @Override
+    public void logout() {
+        currentUser.clear();
+    }
 }

@@ -39,4 +39,10 @@ public class CurrentUser {
     public Boolean isAdmin() {
         return this.getRole().equals(RoleName.ADMIN);
     }
+
+    public void clear() {
+        this.setId(null);
+        this.setUsername(null);
+        this.setRole(null);
+    }
 }
