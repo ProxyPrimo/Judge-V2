@@ -1,6 +1,7 @@
 package judgev2.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpSession;
@@ -9,8 +10,13 @@ import javax.servlet.http.HttpSession;
 public class HomeController {
 
     @GetMapping("/")
-    private String index(HttpSession httpSession) {
-        return httpSession.getAttribute("user") == null ? "index" : "home";
+    private String index(HttpSession httpSession, Model model) {
+        if (httpSession.getAttribute("user") == null) {
+            return "index";
+        }
+        model.addAttribute("user"
+                , httpSession.getAttribute("user"));
+        return "home";
     }
 
 }

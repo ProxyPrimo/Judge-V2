@@ -27,7 +27,7 @@ public class UserServiceModel extends BaseServiceModel {
     @Email(message = "Invalid email")
     private String email;
 
-    @Pattern(regexp = "https:/www\\.github\\.com/\\w+/SpringHomework/", message = "Enter a valid github address")
+    @Pattern(regexp = "https://github.com/\\w+/", message = "Enter a valid github address")
     @NotBlank(message = "Must not be blank")
     private String githubAddress;
 
