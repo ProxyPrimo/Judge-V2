@@ -1,7 +1,9 @@
 package judgev2.web;
 
 import judgev2.data.binding.ExerciseAddBindingModel;
+import judgev2.data.entity.enumeration.RoleName;
 import judgev2.data.service.ExerciseServiceModel;
+import judgev2.data.service.UserServiceModel;
 import judgev2.service.ExerciseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,11 @@ public class ExerciseController {
         if (httpSession.getAttribute("user") == null) {
             return "redirect:/users/login";
         }
+        UserServiceModel userServiceModel = (UserServiceModel) httpSession.getAttribute("user");
+        if (userServiceModel.getRole().getName().equals(RoleName.ADMIN)) {
+            return "redirect:/";
+        }
+
         if (!model.containsAttribute("exerciseAddBindingModel")) {
             model.addAttribute("exerciseAddBindingModel"
                     , new ExerciseAddBindingModel());

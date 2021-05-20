@@ -26,12 +26,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(UserServiceModel userServiceModel) {
         userServiceModel.setRole(roleService
-                .findByName(userRepository.count() == 0 ? RoleName.ADMIN : RoleName.ADMIN));
+                .findByName(userRepository.count() == 0 ? RoleName.ADMIN : RoleName.USER));
 
         UserEntity userEntity = modelMapper
                 .map(userServiceModel, UserEntity.class);
 
-        System.out.println();
         userRepository.save(userEntity);
     }
 
