@@ -11,6 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     private final RoleService roleService;
@@ -57,5 +59,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void logout() {
         currentUser.clear();
+    }
+
+    @Override
+    public List<String> findAllUsernames() {
+        return userRepository.findAllUsernames();
     }
 }
