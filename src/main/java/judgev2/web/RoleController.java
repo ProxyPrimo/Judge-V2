@@ -5,7 +5,9 @@ import judgev2.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/roles")
@@ -28,5 +30,12 @@ public class RoleController {
 
         model.addAttribute("names", userService.findAllUsernames());
         return "role-change";
+    }
+
+    @PostMapping("/change")
+    private String changeConfirm(@RequestParam String username,
+                                 @RequestParam String role) {
+        System.out.println();
+        return "redirect:/";
     }
 }
