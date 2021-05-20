@@ -1,5 +1,6 @@
 package judgev2.web;
 
+import judgev2.data.entity.enumeration.RoleName;
 import judgev2.security.CurrentUser;
 import judgev2.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/roles")
@@ -35,7 +38,9 @@ public class RoleController {
     @PostMapping("/change")
     private String changeConfirm(@RequestParam String username,
                                  @RequestParam String role) {
-        System.out.println();
+
+        userService.changeRole(username, RoleName.valueOf(role.toUpperCase()));
+
         return "redirect:/";
     }
 }

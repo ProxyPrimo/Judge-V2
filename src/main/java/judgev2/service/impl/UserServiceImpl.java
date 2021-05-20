@@ -1,7 +1,9 @@
 package judgev2.service.impl;
 
+import judgev2.data.entity.RoleEntity;
 import judgev2.data.entity.UserEntity;
 import judgev2.data.entity.enumeration.RoleName;
+import judgev2.data.service.RoleServiceModel;
 import judgev2.data.service.UserServiceModel;
 import judgev2.repository.UserRepository;
 import judgev2.security.CurrentUser;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -64,5 +67,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<String> findAllUsernames() {
         return userRepository.findAllUsernames();
+    }
+
+    @Override
+    public void changeRole(String username, RoleName valueOf) {
+        UserEntity user = userRepository.findByUsername(username);
+
+        if (user.getRole().getName() != valueOf) {
+            user.setRole(modelMapper.map(roleService.findByName(valueOf), RoleEntity.class));
+
+            userRepository.save(user);
+        }
     }
 }

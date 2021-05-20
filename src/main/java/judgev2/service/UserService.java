@@ -1,5 +1,6 @@
 package judgev2.service;
 
+import judgev2.data.entity.enumeration.RoleName;
 import judgev2.data.service.UserServiceModel;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface UserService {
     void logout();
 
     List<String> findAllUsernames();
+
+    void changeRole(String username, RoleName valueOf);
 }
