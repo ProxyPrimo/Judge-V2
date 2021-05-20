@@ -29,14 +29,14 @@
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <span>Hello {username}</span>
+                            <span th:text="|Hello ${user.getUsername()}|"></span>
                         </a>
                     </li>
 
                     <li class="nav-item dropdown">
-                        <button class="nav-link dropdown-toggle" id="navbarDropdown"
-                                role="button" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">Admin
+                        <button type="button" class="btn btn-light dropdown-toggle"
+                                id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Admin
                         </button>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" th:href="@{exercises/add}">Add Exercise</a>
