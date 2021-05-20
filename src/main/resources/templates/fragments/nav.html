@@ -7,7 +7,7 @@
 
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <th:block th:if="${user == null}">
+            <th:block th:if="${@currentUser.isAnonymous()}">
                 <ul class="navbar-nav mx-auto">
                 </ul>
                 <ul class="navbar-nav">
@@ -25,11 +25,11 @@
             </th:block>
 
 
-            <th:block th:unless="${user == null}">
-                <ul class="navbar-nav mx-auto">
+            <th:block th:unless="${@currentUser.isAnonymous()}">
+                <ul th:unless="${@currentUser.isAnonymous()}" class="navbar-nav mx-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <span th:text="|Hello ${user.getUsername()}|"></span>
+                            <span th:text="|Hello ${@currentUser.getUsername()}|"></span>
                         </a>
                     </li>
 

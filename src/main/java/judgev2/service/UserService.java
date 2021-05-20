@@ -4,5 +4,6 @@ import judgev2.data.service.UserServiceModel;
 
 public interface UserService {
     void register(UserServiceModel userServiceModel);
+    void login(UserServiceModel userServiceModel);
     UserServiceModel findByUsernameAndPassword(UserServiceModel userServiceModel);
 }

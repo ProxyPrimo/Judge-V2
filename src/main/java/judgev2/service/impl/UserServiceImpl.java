@@ -4,6 +4,7 @@ import judgev2.data.entity.UserEntity;
 import judgev2.data.entity.enumeration.RoleName;
 import judgev2.data.service.UserServiceModel;
 import judgev2.repository.UserRepository;
+import judgev2.security.CurrentUser;
 import judgev2.service.RoleService;
 import judgev2.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -15,12 +16,14 @@ public class UserServiceImpl implements UserService {
     private final RoleService roleService;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final CurrentUser currentUser;
 
     @Autowired
-    public UserServiceImpl(RoleService roleService, UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(RoleService roleService, UserRepository userRepository, ModelMapper modelMapper, CurrentUser currentUser) {
         this.roleService = roleService;
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.currentUser = currentUser;
     }
 
     @Override
@@ -32,6 +35,14 @@ public class UserServiceImpl implements UserService {
                 .map(userServiceModel, UserEntity.class);
 
         userRepository.save(userEntity);
+    }
+
+    @Override
+    public void login(UserServiceModel userServiceModel) {
+        currentUser.setId(userServiceModel.getId())
+                .setUsername(userServiceModel.getUsername())
+                .setRole(userServiceModel.getRole().getName());
+
     }
 
     @Override

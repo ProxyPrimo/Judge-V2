@@ -4,6 +4,7 @@ import judgev2.data.binding.ExerciseAddBindingModel;
 import judgev2.data.entity.enumeration.RoleName;
 import judgev2.data.service.ExerciseServiceModel;
 import judgev2.data.service.UserServiceModel;
+import judgev2.security.CurrentUser;
 import judgev2.service.ExerciseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,21 +26,23 @@ public class ExerciseController {
 
     private final ExerciseService exerciseService;
     private final ModelMapper modelMapper;
+    private final CurrentUser currentUser;
 
     @Autowired
-    public ExerciseController(ExerciseService exerciseService, ModelMapper modelMapper) {
+    public ExerciseController(ExerciseService exerciseService, ModelMapper modelMapper, CurrentUser currentUser) {
         this.exerciseService = exerciseService;
         this.modelMapper = modelMapper;
+        this.currentUser = currentUser;
     }
 
     @GetMapping("/add")
-    private String add(Model model
-            , HttpSession httpSession) {
-        if (httpSession.getAttribute("user") == null) {
+    private String add(Model model) {
+
+        if (currentUser.isAnonymous()) {
             return "redirect:/users/login";
         }
-        UserServiceModel userServiceModel = (UserServiceModel) httpSession.getAttribute("user");
-        if (userServiceModel.getRole().getName().equals(RoleName.ADMIN)) {
+
+        if (!currentUser.isAdmin()) {
             return "redirect:/";
         }
 
