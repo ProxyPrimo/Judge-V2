@@ -71,7 +71,7 @@ public class HomeworkController {
         }
 
         homeworkService
-                .saveHomework(modelMapper.map(homeworkAddBindingModel, HomeworkServiceModel.class));
+                .addHomework(modelMapper.map(homeworkAddBindingModel, HomeworkServiceModel.class));
 
         return "redirect:/";
 

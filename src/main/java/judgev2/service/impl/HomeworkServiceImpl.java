@@ -31,7 +31,7 @@ public class HomeworkServiceImpl implements HomeworkService {
     }
 
     @Override
-    public void saveHomework(HomeworkServiceModel homeworkServiceModel) {
+    public void addHomework(HomeworkServiceModel homeworkServiceModel) {
         HomeworkEntity homeworkEntity = modelMapper
                 .map(homeworkServiceModel, HomeworkEntity.class);
 
