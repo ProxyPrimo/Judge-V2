@@ -5,6 +5,7 @@ import judgev2.data.entity.UserEntity;
 import judgev2.data.entity.enumeration.RoleName;
 import judgev2.data.service.RoleServiceModel;
 import judgev2.data.service.UserServiceModel;
+import judgev2.data.view.UserProfileViewModel;
 import judgev2.repository.UserRepository;
 import judgev2.security.CurrentUser;
 import judgev2.service.RoleService;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -83,5 +85,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity findById(String id) {
         return userRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public UserProfileViewModel findProfileById(String id) {
+        UserEntity userEntity = userRepository.findById(id).orElseThrow();
+        UserProfileViewModel userProfileViewModel =  modelMapper
+                .map(userEntity, UserProfileViewModel.class);
+
+        userProfileViewModel.setHomework(userEntity
+                        .getHomework()
+                        .stream()
+                        .map(h -> h.getExerciseEntity().getName())
+                        .collect(Collectors.toSet()));
+
+        return userProfileViewModel;
     }
 }

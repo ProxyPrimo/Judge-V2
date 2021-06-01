@@ -27,7 +27,7 @@
             <th:block th:unless="${@currentUser.isAnonymous()}">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" th:href="@{/users/profile/{id}(id = ${@currentUser.id})}">
                             <span th:text="|Hello ${@currentUser.getUsername()}|"></span>
                         </a>
                     </li>
@@ -50,9 +50,6 @@
 
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/homework/add}">Add Homework</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/users/profile}">Profile</a>
                     </li>
 
                 </ul>

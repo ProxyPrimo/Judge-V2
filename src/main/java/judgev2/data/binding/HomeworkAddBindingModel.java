@@ -1,28 +1,18 @@
 package judgev2.data.binding;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.validation.constraints.Pattern;
 
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class HomeworkAddBindingModel {
     private String exercise;
-    private String githubAddress;
-
-    public HomeworkAddBindingModel() {
-    }
-
-    public String getExercise() {
-        return exercise;
-    }
-
-    public void setExercise(String exercise) {
-        this.exercise = exercise;
-    }
 
     @Pattern(regexp = "https://github.com/\\w+/")
-    public String getGithubAddress() {
-        return githubAddress;
-    }
-
-    public void setGithubAddress(String githubAddress) {
-        this.githubAddress = githubAddress;
-    }
+    private String githubAddress;
 }

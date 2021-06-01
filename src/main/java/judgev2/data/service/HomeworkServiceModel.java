@@ -1,25 +1,15 @@
 package judgev2.data.service;
 
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class HomeworkServiceModel {
     private String exercise;
     private String githubAddress;
 
-    public HomeworkServiceModel() {
-    }
-
-    public String getExercise() {
-        return exercise;
-    }
-
-    public void setExercise(String exercise) {
-        this.exercise = exercise;
-    }
-
-    public String getGithubAddress() {
-        return githubAddress;
-    }
-
-    public void setGithubAddress(String githubAddress) {
-        this.githubAddress = githubAddress;
-    }
 }
