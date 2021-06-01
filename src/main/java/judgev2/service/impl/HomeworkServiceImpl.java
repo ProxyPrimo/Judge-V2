@@ -31,12 +31,19 @@ public class HomeworkServiceImpl implements HomeworkService {
     }
 
     @Override
-    public void addHomework(HomeworkServiceModel homeworkServiceModel) {
-        HomeworkEntity homeworkEntity = modelMapper
-                .map(homeworkServiceModel, HomeworkEntity.class);
+    public HomeworkServiceModel findByScoring() {
+        return homeworkRepository
+                .findTop1ByOrderByCommentEntitySet()
+                .map(h -> modelMapper.map(h, HomeworkServiceModel.class)).orElseThrow();
+    }
 
+    @Override
+    public void addHomework(String exercise, String githubAddress) {
+        HomeworkEntity homeworkEntity = new HomeworkEntity();
+
+        homeworkEntity.setGithubAddress(githubAddress);
         homeworkEntity.setAddedOn(LocalDateTime.now());
-        homeworkEntity.setExerciseEntity(exerciseService.findByName(homeworkServiceModel.getExercise()));
+        homeworkEntity.setExerciseEntity(exerciseService.findByName(exercise));
         homeworkEntity.setUser(userService.findById(currentUser.getId()));
         homeworkRepository.saveAndFlush(homeworkEntity);
     }

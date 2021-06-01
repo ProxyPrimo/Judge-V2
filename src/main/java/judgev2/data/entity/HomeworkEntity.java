@@ -4,11 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "homework")
@@ -28,4 +26,7 @@ public class HomeworkEntity extends BaseEntity {
 
     @ManyToOne
     private ExerciseEntity exerciseEntity;
+
+    @OneToMany(mappedBy = "homework", fetch = FetchType.EAGER)
+    private Set<CommentEntity> commentEntitySet;
 }

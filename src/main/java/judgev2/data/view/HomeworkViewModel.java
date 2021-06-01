@@ -1,19 +1,14 @@
-package judgev2.data.service;
+package judgev2.data.view;
 
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class HomeworkServiceModel {
+public class HomeworkViewModel {
     private String id;
-    private LocalDateTime addedOn;
     private String githubAddress;
-    private UserServiceModel author;
-
 }

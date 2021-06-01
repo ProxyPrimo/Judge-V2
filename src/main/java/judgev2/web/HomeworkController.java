@@ -1,7 +1,7 @@
 package judgev2.web;
 
 import judgev2.data.binding.HomeworkAddBindingModel;
-import judgev2.data.service.HomeworkServiceModel;
+import judgev2.data.view.HomeworkViewModel;
 import judgev2.service.ExerciseService;
 import judgev2.service.HomeworkService;
 import org.modelmapper.ModelMapper;
@@ -53,8 +53,8 @@ public class HomeworkController {
 
             redirectAttributes
                     .addFlashAttribute("org.springframework" +
-                            ".validation.BindingResult.homeworkAddBindingModel",
-                    homeworkAddBindingModel);
+                                    ".validation.BindingResult.homeworkAddBindingModel",
+                            homeworkAddBindingModel);
 
             return "redirect:add";
         }
@@ -62,7 +62,7 @@ public class HomeworkController {
 
         boolean isLate = exerciseService.checkIfIsLate(homeworkAddBindingModel.getExercise());
 
-        if(isLate) {
+        if (isLate) {
             redirectAttributes.addFlashAttribute("homeworkAddBindingModel"
                     , homeworkAddBindingModel);
 
@@ -71,9 +71,19 @@ public class HomeworkController {
         }
 
         homeworkService
-                .addHomework(modelMapper.map(homeworkAddBindingModel, HomeworkServiceModel.class));
+                .addHomework(homeworkAddBindingModel.getExercise()
+                        , homeworkAddBindingModel.getGithubAddress());
 
         return "redirect:/";
 
+    }
+
+    @GetMapping("/check")
+    private String check(Model model) {
+        model.addAttribute("homework"
+                , modelMapper.map(homeworkService.findByScoring()
+                        , HomeworkViewModel.class));
+
+        return "homework-check";
     }
 }
