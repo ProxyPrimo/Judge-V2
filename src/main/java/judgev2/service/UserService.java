@@ -1,5 +1,6 @@
 package judgev2.service;
 
+import judgev2.data.entity.UserEntity;
 import judgev2.data.entity.enumeration.RoleName;
 import judgev2.data.service.UserServiceModel;
 
@@ -15,4 +16,6 @@ public interface UserService {
     List<String> findAllUsernames();
 
     void changeRole(String username, RoleName valueOf);
+
+    UserEntity findById(String id);
 }

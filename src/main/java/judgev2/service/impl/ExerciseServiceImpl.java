@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -37,5 +38,19 @@ public class ExerciseServiceImpl implements ExerciseService {
         return
                 exerciseRepository
                         .findAllExerciseNames();
+    }
+
+    @Override
+    public boolean checkIfIsLate(String exercise) {
+        ExerciseEntity exerciseEntity = findByName(exercise);
+
+
+        return exerciseEntity != null
+                && exerciseEntity.getDueDate().isBefore(LocalDateTime.now());
+    }
+
+    @Override
+    public ExerciseEntity findByName(String exercise) {
+        return exerciseRepository.findByName(exercise).orElse(null);
     }
 }

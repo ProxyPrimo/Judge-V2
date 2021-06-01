@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="~{fragments/header}"></th:block>
 </head>
@@ -23,22 +23,22 @@
                 </div>
                 <div class="row mt-4 tm-edit-product-row ">
                     <div class="col-xl-7 col-lg-7 col-md-12">
-                        <form action="#" method="" class="tm-edit-product-form">
+                        <form th:action="@{/homework/add}" th:object="${homeworkAddBindingModel}"
+                              method="POST" class="tm-edit-product-form">
 
                             <div class="input-group mb-3">
-                                <h1>You late</h1>
+                                <h1 th:if="${isLate}" class="text-danger">You are too late</h1>
                             </div>
 
                             <div class="input-group mb-3">
-                                <label for="exercise" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Exercises</label>
-                                <select class="custom-select col-xl-9 col-lg-8 col-md-8 col-sm-7" id="exercise"
+                                <label for="exercise"
+                                       class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Exercises</label>
+                                <select th:field="*{exercise}" class="custom-select col-xl-9 col-lg-8 col-md-8 col-sm-7" id="exercise"
                                         name="exercise">
-                                    <option value="" selected>Select exercise</option>
-
-                                    <option>Exercise One</option>
-                                    <option>Exercise Two</option>
-                                    <option>Exercise Three</option>
-                                    <option>Exercise Four</option>
+                                    <option th:each="ex : ${exNames}"
+                                            th:value="${ex}"
+                                            th:text="${ex}"
+                                            selected>Select exercise</option>
 
                                 </select>
                             </div>
@@ -46,11 +46,13 @@
                                 <label for="gitAddress" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
                                     Github address
                                 </label>
-                                <input id="gitAddress" name="gitAddress" type="text"
+                                <input th:field="*{githubAddress}" th:errorclass="bg-danger"
+                                       id="gitAddress" name="gitAddress" type="text"
                                        class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
                             </div>
 
-                            <small class="text-danger">Invalid github address</small>
+                            <small th:if="${#fields.hasErrors('githubAddress')}"
+                                   th:errors="*{githubAddress}" class="text-danger">Invalid github address</small>
 
 
                             <div class="input-group mb-3">
