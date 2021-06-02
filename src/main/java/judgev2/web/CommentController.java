@@ -3,6 +3,7 @@ package judgev2.web;
 import judgev2.data.binding.CommentAddBindingModel;
 import judgev2.data.service.CommentServiceModel;
 import judgev2.data.view.HomeworkViewModel;
+import judgev2.security.CurrentUser;
 import judgev2.service.CommentService;
 import judgev2.service.HomeworkService;
 import org.modelmapper.ModelMapper;
@@ -23,16 +24,22 @@ public class CommentController {
     private final HomeworkService homeworkService;
     private final ModelMapper modelMapper;
     private final CommentService commentService;
+    private final CurrentUser currentUser;
 
     @Autowired
-    public CommentController(HomeworkService homeworkService, ModelMapper modelMapper, CommentService commentService) {
+    public CommentController(HomeworkService homeworkService, ModelMapper modelMapper, CommentService commentService, CurrentUser currentUser) {
         this.homeworkService = homeworkService;
         this.modelMapper = modelMapper;
         this.commentService = commentService;
+        this.currentUser = currentUser;
     }
 
     @GetMapping("/add")
     private String add(Model model) {
+
+        if (currentUser.isAnonymous()) {
+            return "redirect:/users/login";
+        }
 
         if (!model.containsAttribute("commentAddBindingModel")) {
             model.addAttribute("commentAddBindingModel", new CommentAddBindingModel());

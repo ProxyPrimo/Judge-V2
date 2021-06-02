@@ -1,7 +1,7 @@
 package judgev2.web;
 
 import judgev2.data.binding.HomeworkAddBindingModel;
-import judgev2.data.view.HomeworkViewModel;
+import judgev2.security.CurrentUser;
 import judgev2.service.ExerciseService;
 import judgev2.service.HomeworkService;
 import org.modelmapper.ModelMapper;
@@ -21,17 +21,21 @@ import javax.validation.Valid;
 public class HomeworkController {
     private final ExerciseService exerciseService;
     private final HomeworkService homeworkService;
-    private final ModelMapper modelMapper;
+    private final CurrentUser currentUser;
 
     @Autowired
-    public HomeworkController(ExerciseService exerciseService, HomeworkService homeworkService, ModelMapper modelMapper) {
+    public HomeworkController(ExerciseService exerciseService, HomeworkService homeworkService, CurrentUser currentUser) {
         this.exerciseService = exerciseService;
         this.homeworkService = homeworkService;
-        this.modelMapper = modelMapper;
+        this.currentUser = currentUser;
     }
 
     @GetMapping("/add")
     private String add(Model model) {
+        if (currentUser.isAnonymous()) {
+            return "redirect:/users/login";
+        }
+
         if (!model.containsAttribute("homeworkAddBindingModel")) {
             model.addAttribute("homeworkAddBindingModel", new HomeworkAddBindingModel());
         }
