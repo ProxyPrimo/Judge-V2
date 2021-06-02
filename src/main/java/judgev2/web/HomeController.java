@@ -33,6 +33,7 @@ public class HomeController {
         model.addAttribute("exercises", exerciseService.findAllExerciseNames());
         model.addAttribute("students", userService.findAllUsernames());
         model.addAttribute("avg", commentService.findAvgScore());
+        model.addAttribute("userCount", userService.findUserCount());
 
 
         return "home";

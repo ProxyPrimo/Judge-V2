@@ -116,7 +116,6 @@
     google.charts.setOnLoadCallback(drawAreaChart);
 
     function drawAreaChart() {
-        //ToDo averageGrades
         let averageGrade = [[${avg}]]
 
         let dataArea = google.visualization.arrayToDataTable([
@@ -145,8 +144,9 @@
     google.charts.setOnLoadCallback(drawGauge);
 
     function drawGauge() {
-        //ToDo total count of register users
-        let totalStudents = 20;
+
+        const totalStudents = [[${userCount}]]
+
         let dataGauge = google.visualization.arrayToDataTable([
             ['Label', 'Value'],
             ['All users', totalStudents]

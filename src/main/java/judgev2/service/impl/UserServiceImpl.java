@@ -101,4 +101,9 @@ public class UserServiceImpl implements UserService {
 
         return userProfileViewModel;
     }
+
+    @Override
+    public Integer findUserCount() {
+        return userRepository.findUserCount();
+    }
 }

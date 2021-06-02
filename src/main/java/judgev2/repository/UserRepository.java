@@ -16,4 +16,6 @@ public interface UserRepository extends JpaRepository<UserEntity, String> {
 
     UserEntity findByUsername(String username);
 
+    @Query("SELECT COUNT(u) FROM UserEntity u")
+    Integer findUserCount();
 }
