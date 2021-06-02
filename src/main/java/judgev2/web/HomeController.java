@@ -1,6 +1,7 @@
 package judgev2.web;
 
 import judgev2.security.CurrentUser;
+import judgev2.service.CommentService;
 import judgev2.service.ExerciseService;
 import judgev2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,14 @@ public class HomeController {
     private final CurrentUser currentUser;
     private final ExerciseService exerciseService;
     private final UserService userService;
+    private final CommentService commentService;
 
     @Autowired
-    public HomeController(CurrentUser currentUser, ExerciseService exerciseService, UserService userService) {
+    public HomeController(CurrentUser currentUser, ExerciseService exerciseService, UserService userService, CommentService commentService) {
         this.currentUser = currentUser;
         this.exerciseService = exerciseService;
         this.userService = userService;
+        this.commentService = commentService;
     }
 
     @GetMapping("/")
@@ -29,6 +32,9 @@ public class HomeController {
 
         model.addAttribute("exercises", exerciseService.findAllExerciseNames());
         model.addAttribute("students", userService.findAllUsernames());
+        model.addAttribute("avg", commentService.findAvgScore());
+
+
         return "home";
     }
 

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<th:block th:include="~{fragments/header}"></th:block>
+    <th:block th:include="~{fragments/header}"></th:block>
 </head>
 
 <body id="reportsPage">
@@ -45,8 +45,9 @@
                     </div>
                     <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
 
-                        <li  th:each="st : ${students}" th:text="${st}"
-                             class="tm-list-group-item">Top student one</li>
+                        <li th:each="st : ${students}" th:text="${st}"
+                            class="tm-list-group-item">Top student one
+                        </li>
 
                     </ol>
                 </div>
@@ -61,9 +62,9 @@
                     <h2 class="tm-block-title">Active Exercises</h2>
                     <ol class="tm-list-group">
 
-                        <<li  th:each="ex : ${exercises}" th:text="${ex}"
-                              class="tm-list-group-item">Active exercise one</li>
-
+                        <li th:each="ex : ${exercises}" th:text="${ex}"
+                            class="tm-list-group-item">Active exercise one
+                        </li>
                     </ol>
                 </div>
             </div>
@@ -116,7 +117,7 @@
 
     function drawAreaChart() {
         //ToDo averageGrades
-        let averageGrade = 4;
+        let averageGrade = [[${avg}]]
 
         let dataArea = google.visualization.arrayToDataTable([
             ['Grades', 'Legacy', 'Now'],

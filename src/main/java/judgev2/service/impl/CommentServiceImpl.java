@@ -45,4 +45,9 @@ public class CommentServiceImpl implements CommentService {
 
         commentRepository.saveAndFlush(commentEntity);
     }
+
+    @Override
+    public Double findAvgScore() {
+        return commentRepository.findAverageScore();
+    }
 }
