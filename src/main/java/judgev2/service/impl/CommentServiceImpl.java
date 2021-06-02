@@ -11,6 +11,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class CommentServiceImpl implements CommentService {
 
@@ -49,5 +52,30 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Double findAvgScore() {
         return commentRepository.findAverageScore();
+    }
+
+    @Override
+    public Map<Integer, Integer> findScoreMap() {
+        Map<Integer, Integer> scoreMap = initScoreMap();
+
+        commentRepository
+                .findAll()
+                .forEach(c -> {
+                    Integer score = c.getScore();
+
+                    scoreMap.put(score, scoreMap.get(score) + 1);
+                });
+
+        return scoreMap;
+    }
+
+    private Map<Integer, Integer> initScoreMap() {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 2; i <= 6; i++) {
+            map.put(i, 0);
+        }
+
+        return map;
     }
 }
