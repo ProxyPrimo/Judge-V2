@@ -47,4 +47,9 @@ public class HomeworkServiceImpl implements HomeworkService {
         homeworkEntity.setUser(userService.findById(currentUser.getId()));
         homeworkRepository.saveAndFlush(homeworkEntity);
     }
+
+    @Override
+    public HomeworkEntity findById(String homeworkId) {
+        return homeworkRepository.findById(homeworkId).orElseThrow();
+    }
 }

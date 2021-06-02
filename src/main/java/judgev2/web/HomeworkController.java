@@ -78,12 +78,5 @@ public class HomeworkController {
 
     }
 
-    @GetMapping("/check")
-    private String check(Model model) {
-        model.addAttribute("homework"
-                , modelMapper.map(homeworkService.findByScoring()
-                        , HomeworkViewModel.class));
 
-        return "homework-check";
-    }
 }
